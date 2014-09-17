@@ -10,7 +10,7 @@ Set up PhpRedis in Debian-like systems.
 
 #### Variables
 
-* `phpredis_version` [default: ``]: What version of phpredis to check out (set up). This can be the full 40-character SHA-1 hash, the literal string HEAD, a branch name, or a tag name 
+* `phpredis_version` [default: `2.2.5`]: What version of phpredis to check out (set up). This can be the full 40-character SHA-1 hash, the literal string HEAD, a branch name, or a tag name 
 
 ## Dependencies
 
