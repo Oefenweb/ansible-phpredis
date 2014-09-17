@@ -1,0 +1,36 @@
+---
+# tasks file for phpredis
+- name: install dependencies
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items: phpredis_dependencies
+  when: phpredis_dependencies
+  tags: [configuration, phpredis, phpredis-dependencies]
+
+- name: checkout repository
+  git:
+    repo: https://github.com/nicolasff/phpredis.git
+    dest: "{{ ansible_env.HOME }}/checkout/phpredis"
+    version: "{{ phpredis_version }}"
+  tags: [configuration, phpredis, phpredis-checkout]
+
+- name: build deb file
+  shell: "{{ ansible_env.HOME }}/checkout/phpredis/mkdeb.sh && mv {{ ansible_env.HOME }}/checkout/phpredis/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb {{ ansible_env.HOME }}/checkout/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb"
+  args:
+    chdir: "{{ ansible_env.HOME }}/checkout/phpredis"
+    creates: "{{ ansible_env.HOME }}/checkout/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb"
+  register: result
+  tags: [configuration, phpredis, phpredis-build-deb]
+
+- name: install deb file
+  apt:
+    deb: "{{ ansible_env.HOME }}/checkout/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb"
+  tags: [configuration, phpredis, phpredis-install-deb]
+
+- name: cleanup build
+  shell: "git reset --hard && git clean -d -x -f"
+  args:
+    chdir: "{{ ansible_env.HOME }}/checkout/phpredis"
+  when: result|changed
+  tags: [configuration, phpredis, phpredis-cleanup-build]

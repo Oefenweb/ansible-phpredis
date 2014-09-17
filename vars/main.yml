@@ -1,0 +1,6 @@
+---
+# vars file for phpredis
+phpredis_dependencies:
+  - php5-dev
+  - build-essential
+  - git
