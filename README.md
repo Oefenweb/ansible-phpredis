@@ -1,4 +1,6 @@
-## phpredis [![Build Status](https://travis-ci.org/Oefenweb/ansible-phpredis.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-phpredis)
+## phpredis
+
+[![Build Status](https://travis-ci.org/Oefenweb/ansible-phpredis.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-phpredis) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-phpredis-blue.svg)](https://galaxy.ansible.com/list#/roles/1727)
 
 Set up PhpRedis in Debian-like systems.
 
