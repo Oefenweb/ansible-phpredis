@@ -8,29 +8,38 @@
   when: phpredis_dependencies
   tags: [configuration, phpredis, phpredis-dependencies]
 
+- name: create (checkout) directory
+  file:
+    path: /var/lib/ansible/phpredis/checkouts
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  tags: [configuration, phpredis, phpredis-checkout ]
+
 - name: checkout repository
   git:
     repo: https://github.com/nicolasff/phpredis.git
-    dest: "{{ ansible_env.HOME }}/checkout/phpredis"
+    dest: "/var/lib/ansible/phpredis/checkouts/phpredis"
     version: "{{ phpredis_version }}"
   tags: [configuration, phpredis, phpredis-checkout]
 
 - name: build deb file
-  shell: "{{ ansible_env.HOME }}/checkout/phpredis/mkdeb.sh && mv {{ ansible_env.HOME }}/checkout/phpredis/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb {{ ansible_env.HOME }}/checkout/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb"
+  shell: "/var/lib/ansible/phpredis/checkouts/phpredis/mkdeb.sh && mv /var/lib/ansible/phpredis/checkouts/phpredis/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb /var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb"
   args:
-    chdir: "{{ ansible_env.HOME }}/checkout/phpredis"
-    creates: "{{ ansible_env.HOME }}/checkout/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb"
+    chdir: "/var/lib/ansible/phpredis/checkouts/phpredis"
+    creates: "/var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb"
   register: result
   tags: [configuration, phpredis, phpredis-build-deb]
 
 - name: install deb file
   apt:
-    deb: "{{ ansible_env.HOME }}/checkout/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb"
+    deb: "/var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb"
   tags: [configuration, phpredis, phpredis-install-deb]
 
 - name: cleanup build
   shell: "git reset --hard && git clean -d -x -f"
   args:
-    chdir: "{{ ansible_env.HOME }}/checkout/phpredis"
+    chdir: "/var/lib/ansible/phpredis/checkouts/phpredis"
   when: result|changed
   tags: [configuration, phpredis, phpredis-cleanup-build]
