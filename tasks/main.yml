@@ -19,7 +19,7 @@
 
 - name: checkout repository
   git:
-    repo: https://github.com/nicolasff/phpredis.git
+    repo: https://github.com/phpredis/phpredis.git
     dest: "/var/lib/ansible/phpredis/checkouts/phpredis"
     version: "{{ phpredis_version }}"
   tags: [configuration, phpredis, phpredis-checkout]
