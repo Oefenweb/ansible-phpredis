@@ -8,7 +8,7 @@ Set up [PhpRedis](https://github.com/phpredis/phpredis) in Debian-like systems.
 
 * `php5-dev` (will be installed)
 * `build-essential` (will be installed)
-* `git` (will be installed)
+* `git-core` (will be installed)
 
 #### Variables
 
