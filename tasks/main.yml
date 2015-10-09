@@ -7,7 +7,6 @@
     update_cache: true
     cache_valid_time: 3600
   with_items: phpredis_dependencies
-  when: phpredis_dependencies
   tags: [configuration, phpredis, phpredis-dependencies]
 
 - name: create (checkout) directory
@@ -43,5 +42,5 @@
   shell: "git reset --hard && git clean -d -x -f"
   args:
     chdir: "/var/lib/ansible/phpredis/checkouts/phpredis"
-  when: result|changed
+  when: result | changed
   tags: [configuration, phpredis, phpredis-cleanup-build]
