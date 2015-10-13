@@ -1,6 +1,6 @@
----
 # test file for phpredis
+---
 - hosts: localhost
   remote_user: root
   roles:
-    - ansible-phpredis
+    - ../../
