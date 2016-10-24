@@ -23,10 +23,13 @@
     repo: https://github.com/phpredis/phpredis.git
     dest: "/var/lib/ansible/phpredis/checkouts/phpredis"
     version: "{{ phpredis_version }}"
+    force: true
   tags: [configuration, phpredis, phpredis-checkout]
 
 - name: build deb file
-  shell: "/var/lib/ansible/phpredis/checkouts/phpredis/mkdeb.sh && mv /var/lib/ansible/phpredis/checkouts/phpredis/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb /var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb"
+  shell: >
+    /var/lib/ansible/phpredis/checkouts/phpredis/mkdeb.sh &&
+    mv /var/lib/ansible/phpredis/checkouts/phpredis/$(ls -t phpredis-*.deb | head -1) /var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb
   args:
     chdir: "/var/lib/ansible/phpredis/checkouts/phpredis"
     creates: "/var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb"
@@ -39,7 +42,7 @@
   tags: [configuration, phpredis, phpredis-install-deb]
 
 - name: cleanup build
-  shell: "git reset --hard && git clean -d -x -f"
+  shell: git reset --hard && git clean -d -x -f
   args:
     chdir: "/var/lib/ansible/phpredis/checkouts/phpredis"
   when: result | changed
