@@ -28,10 +28,8 @@
 
 - name: build deb file
   shell: >
-    /var/lib/ansible/phpredis/checkouts/phpredis/mkdeb.sh \
-    && mv \
-      /var/lib/ansible/phpredis/checkouts/phpredis/$(ls -t phpredis-*.deb | head -1) \
-      /var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb
+    /var/lib/ansible/phpredis/checkouts/phpredis/mkdeb.sh &&
+    mv /var/lib/ansible/phpredis/checkouts/phpredis/$(ls -t phpredis-*.deb | head -1) /var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb
   args:
     chdir: "/var/lib/ansible/phpredis/checkouts/phpredis"
     creates: "/var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb"
