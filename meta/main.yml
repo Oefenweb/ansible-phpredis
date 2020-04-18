@@ -1,6 +1,7 @@
 # meta file for htop
 ---
 galaxy_info:
+  role_name: htop
   author: Mischa ter Smitten
   company: Oefenweb.nl B.V.
   description: Set up PhpRedis in Debian-like systems
