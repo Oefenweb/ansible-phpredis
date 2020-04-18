@@ -1,7 +1,7 @@
-# meta file for htop
+# meta file for phpredis
 ---
 galaxy_info:
-  role_name: htop
+  role_name: phpredis
   author: Mischa ter Smitten
   company: Oefenweb.nl B.V.
   description: Set up PhpRedis in Debian-like systems
