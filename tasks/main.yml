@@ -2,11 +2,10 @@
 ---
 - name: install dependencies
   apt:
-    name: "{{ item }}"
+    name: "{{ phpredis_dependencies }}"
     state: "{{ apt_install_state | default('latest') }}"
     update_cache: true
     cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
-  with_items: "{{ phpredis_dependencies }}"
   tags:
     - configuration
     - phpredis
@@ -42,7 +41,7 @@
   args:
     chdir: "/var/lib/ansible/phpredis/checkouts/phpredis"
     creates: "/var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb"
-  register: result
+  register: _result
   tags:
     - configuration
     - phpredis
@@ -57,10 +56,11 @@
     - phpredis-install-deb
 
 - name: cleanup build
-  shell: git reset --hard && git clean -d -x -f
+  shell: >
+    git reset --hard && git clean -d -x -f
   args:
     chdir: "/var/lib/ansible/phpredis/checkouts/phpredis"
-  when: result is changed
+  when: _result is changed
   tags:
     - configuration
     - phpredis

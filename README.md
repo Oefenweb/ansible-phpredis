@@ -1,6 +1,7 @@
 ## phpredis
 
-[![Build Status](https://travis-ci.org/Oefenweb/ansible-phpredis.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-phpredis) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-phpredis-blue.svg)](https://galaxy.ansible.com/Oefenweb/phpredis)
+[![Build Status](https://travis-ci.org/Oefenweb/ansible-phpredis.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-phpredis)
+[![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-phpredis-blue.svg)](https://galaxy.ansible.com/Oefenweb/phpredis)
 
 Set up [PhpRedis](https://github.com/phpredis/phpredis) in Debian-like systems.
 
@@ -12,7 +13,7 @@ Set up [PhpRedis](https://github.com/phpredis/phpredis) in Debian-like systems.
 
 #### Variables
 
-* `phpredis_version` [default: `2.2.7`]: What version of phpredis to check out (set up). This can be the full 40-character SHA-1 hash, the literal string HEAD, a branch name, or a tag name 
+* `phpredis_version` [default: `2.2.7`]: What version of phpredis to check out (set up). This can be the full 40-character SHA-1 hash, the literal string HEAD, a branch name, or a tag name
 
 ## Dependencies
 
