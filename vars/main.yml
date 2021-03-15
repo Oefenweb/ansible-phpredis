@@ -1,4 +1,4 @@
-# vars file for phpredis
+# vars file
 ---
 phpredis_dependencies:
   - "{{ 'php7.0-dev' if (ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('16.04', '>=')) else 'php5-dev' }}"

@@ -1,4 +1,4 @@
-# test file for phpredis
+# test file
 ---
 - hosts: all
   remote_user: vagrant

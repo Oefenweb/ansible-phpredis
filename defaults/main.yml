@@ -1,3 +1,3 @@
-# defaults file for phpredis
+# defaults file
 ---
 phpredis_version: 2.2.7
