@@ -1,3 +1,6 @@
 ---
 warn_list:
   - '106'
+  - risky-shell-pipe
+  - command-instead-of-module
+  - no-handler
