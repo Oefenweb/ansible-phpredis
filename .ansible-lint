@@ -1,4 +1,6 @@
-skip_list:
-  - '204'
-  - '303'
-  - '306'
+---
+warn_list:
+  - '106'
+  - risky-shell-pipe
+  - command-instead-of-module
+  - no-handler
