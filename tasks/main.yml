@@ -34,7 +34,7 @@
     - phpredis
     - phpredis-checkout
 
-- name: build deb file
+- name: build deb file  # noqa risky-shell-pipe
   ansible.builtin.shell: >
     /var/lib/ansible/phpredis/checkouts/phpredis/mkdeb.sh &&
     mv /var/lib/ansible/phpredis/checkouts/phpredis/$(ls -t phpredis-*.deb | head -1) /var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb
@@ -55,11 +55,12 @@
     - phpredis
     - phpredis-install-deb
 
-- name: cleanup build
+- name: cleanup build  # noqa command-instead-of-module
   ansible.builtin.shell: >
     git reset --hard && git clean -d -x -f
   args:
     chdir: "/var/lib/ansible/phpredis/checkouts/phpredis"
+  changed_when: true
   when: _result is changed
   tags:
     - configuration
