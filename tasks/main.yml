@@ -1,7 +1,7 @@
 # tasks file
 ---
 - name: install dependencies
-  apt:
+  ansible.builtin.apt:
     name: "{{ phpredis_dependencies }}"
     state: "{{ apt_install_state | default('latest') }}"
     update_cache: true
@@ -12,7 +12,7 @@
     - phpredis-dependencies
 
 - name: create (checkout) directory
-  file:
+  ansible.builtin.file:
     path: /var/lib/ansible/phpredis/checkouts
     state: directory
     owner: root
@@ -24,7 +24,7 @@
     - phpredis-checkout
 
 - name: checkout repository
-  git:
+  ansible.builtin.git:
     repo: https://github.com/phpredis/phpredis.git
     dest: "/var/lib/ansible/phpredis/checkouts/phpredis"
     version: "{{ phpredis_version }}"
@@ -34,8 +34,8 @@
     - phpredis
     - phpredis-checkout
 
-- name: build deb file
-  shell: >
+- name: build deb file  # noqa risky-shell-pipe
+  ansible.builtin.shell: >
     /var/lib/ansible/phpredis/checkouts/phpredis/mkdeb.sh &&
     mv /var/lib/ansible/phpredis/checkouts/phpredis/$(ls -t phpredis-*.deb | head -1) /var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb
   args:
@@ -48,18 +48,19 @@
     - phpredis-build-deb
 
 - name: install deb file
-  apt:
+  ansible.builtin.apt:
     deb: "/var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb"
   tags:
     - configuration
     - phpredis
     - phpredis-install-deb
 
-- name: cleanup build
-  shell: >
+- name: cleanup build  # noqa command-instead-of-module
+  ansible.builtin.shell: >
     git reset --hard && git clean -d -x -f
   args:
     chdir: "/var/lib/ansible/phpredis/checkouts/phpredis"
+  changed_when: true
   when: _result is changed
   tags:
     - configuration
