@@ -1,7 +1,5 @@
 ---
 warn_list:
   - role-name
+  - name[play]
   - name[casing]
-  - risky-shell-pipe
-  - command-instead-of-module
-  - no-handler
