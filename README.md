@@ -25,7 +25,7 @@ None
 ---
 - hosts: all
   roles:
-  - phpredis
+    - oefenweb.phpredis
 ```
 
 #### License
