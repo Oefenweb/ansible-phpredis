@@ -17,7 +17,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: '0755'
   tags:
     - configuration
     - phpredis
@@ -37,10 +37,10 @@
 - name: build deb file  # noqa risky-shell-pipe
   ansible.builtin.shell: >
     /var/lib/ansible/phpredis/checkouts/phpredis/mkdeb.sh &&
-    mv /var/lib/ansible/phpredis/checkouts/phpredis/$(ls -t phpredis-*.deb | head -1) /var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb
+    mv /var/lib/ansible/phpredis/checkouts/phpredis/$(ls -t phpredis-*.deb | head -1) /var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_facts['machine'] }}.deb
   args:
     chdir: "/var/lib/ansible/phpredis/checkouts/phpredis"
-    creates: "/var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb"
+    creates: "/var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_facts['machine'] }}.deb"
   register: _result
   tags:
     - configuration
@@ -49,7 +49,7 @@
 
 - name: install deb file
   ansible.builtin.apt:
-    deb: "/var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_machine }}.deb"
+    deb: "/var/lib/ansible/phpredis/checkouts/phpredis-{{ phpredis_version }}_{{ ansible_facts['machine'] }}.deb"
   tags:
     - configuration
     - phpredis
